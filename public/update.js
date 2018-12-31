@@ -21,13 +21,16 @@ function update(_msg, _model) {
   if (_msg.type === MSGS.SELECT_ROOM) {
     const {rmId, rmTitle, namespace, privateRm, msgHistory} =
       _model.namespaces[_model.nsId].nsRooms[_msg.rmId]
-    return {
-      ..._model
-      , rmId
+    const room = {
+      rmId
       , rmTitle
       , namespace
       , privateRm
       , msgHistory
+    }
+    return {
+      ..._model
+      , room
     }
   }
 

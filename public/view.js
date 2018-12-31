@@ -86,20 +86,20 @@ function nsList(_dispatch, _className, _nsArr) {
 }
 
 function colView3(_className, _model) {
-  // const {msgHistory} = _model.namespaces[0].nsRooms[0]
+  const {msgHistory} = _model.room
   return div({className: _className}, [
     div({className: "f3 ma2 h2"}, "Current Room")
-    , msgsList("ma2", _model.room.msgHistory)
-    , pre( JSON.stringify(_model, null, 2) )
-    // , msgFormView(_model)
+    , msgsList("ma2", msgHistory)
+    // , pre( JSON.stringify(_model, null, 2) )
+    , msgFormView(_model)
   ])
 }
 
-function colView2(_dispatch, _className, _nsRooms) {
-  // const {nsRooms} = _model.namespaces[0]
+function colView2(_dispatch, _className, _model) {
+  const {nsRooms} = _model
   return div({className: _className}, [
     div({className: "f3 ma2 white-80"}, "Rooms")
-    , rmsList(_dispatch, "", _nsRooms)
+    , rmsList(_dispatch, "", nsRooms)
   ])
 }
 
@@ -115,7 +115,7 @@ function view(_dispatch, _model) {
     {className: "mw-100 vh-100 flex"}
     , [
       colView1(_dispatch, "fl w3 h-100 bg-black-80", _model)
-      , colView2(_dispatch, "fl w5 h-100 bg-black-60", _model.nsRooms)
+      , colView2(_dispatch, "fl w5 h-100 bg-black-60", _model)
       , colView3("fl w-100 h-100 bg-black-10 relative", _model)
     ]
   )
