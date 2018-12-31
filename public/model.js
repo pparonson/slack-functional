@@ -1,7 +1,12 @@
 import * as R from "ramda"
 
 const initModel = {
-  namespaces: [
+  nsId: 0
+  , nsTitle: ""
+  , nsImg: ""
+  , nsEndpoint: ""
+  , nsRooms: []
+  , namespaces: [
     {
       nsId: 0
       , nsTitle: "Wiki"
@@ -15,26 +20,26 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
             , {
-              id: 2
-              , user: {id: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 2
+              , user: {userId: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I slept."
             }
             , {
-              id: 3
-              , user: {id: 3, username: "aaronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 3
+              , user: {userId: 3, username: "aaronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I did all the things."
             }
@@ -47,20 +52,20 @@ const initModel = {
           , privateRm: true
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
             , {
-              id: 2
-              , user: {id: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 2
+              , user: {userId: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I slept."
             }
@@ -73,14 +78,14 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
@@ -101,26 +106,26 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
             , {
-              id: 2
-              , user: {id: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 2
+              , user: {userId: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I slept."
             }
             , {
-              id: 3
-              , user: {id: 3, username: "aaronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 3
+              , user: {userId: 3, username: "aaronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I did all the things."
             }
@@ -133,20 +138,20 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
             , {
-              id: 2
-              , user: {id: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 2
+              , user: {userId: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I slept."
             }
@@ -159,14 +164,14 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
@@ -179,8 +184,8 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
@@ -201,26 +206,26 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
             , {
-              id: 2
-              , user: {id: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 2
+              , user: {userId: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I slept."
             }
             , {
-              id: 3
-              , user: {id: 3, username: "aaronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 3
+              , user: {userId: 3, username: "aaronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I did all the things."
             }
@@ -233,20 +238,20 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
             , {
-              id: 2
-              , user: {id: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 2
+              , user: {userId: 2, username: "brookeykay", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I slept."
             }
@@ -259,14 +264,14 @@ const initModel = {
           , privateRm: false
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
             , {
-              id: 1
-              , user: {id: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 1
+              , user: {userId: 1, username: "ellebelle", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I prepared a tea party."
             }
@@ -279,8 +284,8 @@ const initModel = {
           , privateRm: true
           , msgHistory: [
             {
-              id: 0
-              , user: {id: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
+              msgId: 0
+              , user: {userId: 0, username: "paronson", userImg: "https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"}
               , timestamp: new Date()
               , msgTxt: "I went running today."
             }
