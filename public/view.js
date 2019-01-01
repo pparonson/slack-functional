@@ -8,7 +8,7 @@ import {
 } from "./update"
 
 const {
-  pre, div, h1, ul, li, img, form, input
+  pre, div, h1, img, form, input, i
 } = hh(h)
 
 function msgListItem(_className, _msg) {
@@ -70,7 +70,7 @@ function rmsList(_dispatch, _className, _rmsArr) {
 function nsListItem(_dispatch, _className, _ns) {
   const {nsId, nsImg} = _ns
   return div({className: _className}, [
-    img({className: "pointer dim", src: nsImg, onclick: () =>
+    img({className: "", src: nsImg, onclick: () =>
       _dispatch( selectNamespaceMsg(nsId) )})
   ])
 }
@@ -79,7 +79,7 @@ function nsList(_dispatch, _className, _nsArr) {
   const nsListItems =
     R.map(R.partial(
       nsListItem
-      , [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center"]), _nsArr)
+      , [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"]), _nsArr)
   return div({className: _className}, [
     ...nsListItems
   ])
@@ -98,15 +98,19 @@ function colView3(_className, _model) {
 function colView2(_dispatch, _className, _model) {
   const {nsRooms} = _model
   return div({className: _className}, [
-    div({className: "f3 ma2 white-80"}, "Rooms")
-    , rmsList(_dispatch, "", nsRooms)
+    div({className: "f3 ma2 white-80 dib"}, "Rooms")
+    // , div({className: "dib dim pointer"}
+    //   , [i({className: "fas fa-plus-circle f3 white-80"})])
+    , rmsList(_dispatch, "db", nsRooms)
   ])
 }
 
 function colView1(_dispatch, _className, _model) {
   const {namespaces} = _model
   return div({className: _className}, [
-    nsList(_dispatch, "center", namespaces)
+    div({className: "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"}
+      , [i({className: "fas fa-plus f3 center"})])
+    , nsList(_dispatch, "center", namespaces)
   ])
 }
 
