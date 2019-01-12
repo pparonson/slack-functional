@@ -97,10 +97,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // import app from "./app"
-// import initModel from "./model"
-// import update from "./update"
-// import view from "./view"
 
 var node = document.querySelector("#app"); // const el = document.createElement("p")
 // el.innerHTML = JSON.stringify(initModel, null, 2)
