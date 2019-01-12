@@ -22,6 +22,8 @@ app.get("/", (req, res) => {
 const expressServer = app.listen(PORT, () =>
   console.log(`Express server is listening on PORT: ${PORT}`))
 
+  // loop through each namespace and listen for a connection
+  
   const io = socketio(expressServer, {
   // make socket.io.js available to serveClient
   // this is the default behavior and not actually needed
