@@ -2424,6 +2424,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
+var socket = io("http://localhost:8080"); // the / ns endpoint
+
+var socket2 = io("http://localhost:8080/wiki"); // the /wiki ns endpoint
+
 
 
 var _hh = hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1___default()(virtual_dom__WEBPACK_IMPORTED_MODULE_0__["h"]),
@@ -2510,8 +2514,10 @@ function nsListItem(_dispatch, _className, _ns) {
     attributes: {
       "data-ns": nsEndpoint
     },
-    onclick: function onclick() {
-      return _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId));
+    onclick: function onclick(e) {
+      console.dir("dir: ".concat(JSON.stringify(e, null, 2))); // const nsEndpoint =
+
+      _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId));
     }
   }, [img({
     className: "",
@@ -2520,6 +2526,9 @@ function nsListItem(_dispatch, _className, _ns) {
 }
 
 function nsList(_dispatch, _className, _nsArr) {
+  socket.on("nsList", function (nsData) {
+    console.log("nsData: ".concat(JSON.stringify(nsData, null, 2)));
+  });
   var nsListItems = ramda__WEBPACK_IMPORTED_MODULE_2__["map"](ramda__WEBPACK_IMPORTED_MODULE_2__["partial"](nsListItem, [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"]), _nsArr);
   return div({
     className: _className
@@ -2559,6 +2568,9 @@ function colView1(_dispatch, _className, _model) {
 }
 
 function view(_dispatch, _model) {
+  socket.on("connect", function () {
+    return console.log("Socket ID: ".concat(socket.id));
+  });
   return div({
     className: "mw-100 vh-100 flex"
   }, [colView1(_dispatch, "fl w3 h-100 bg-black-80", _model), colView2(_dispatch, "fl w5 h-100 bg-black-60", _model), colView3("fl w-100 h-100 bg-black-10 relative", _model)]);

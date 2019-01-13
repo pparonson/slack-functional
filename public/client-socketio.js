@@ -1,14 +1,14 @@
-const socket = io("http://localhost:8080") // the / ns endpoint
-const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+// const socket = io("http://localhost:8080") // the / ns endpoint
+// const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
 
 // // NOTE: TESTING
-socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
+// socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
 // socket2.on("connect", () => console.log(`Socket2 ID: ${socket.id}`))
 
 // listen for nsList, which is a list of all of the namespaces
-socket.on("nsList", nsData => {
-  console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
-})
+// socket.on("nsList", nsData => {
+//   console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+// })
 
 // // receive msg from server
 // socket.on("messageFromServer", msg => {

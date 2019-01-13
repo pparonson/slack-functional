@@ -2,6 +2,9 @@ import {h} from "virtual-dom"
 import hh from "hyperscript-helpers"
 import * as R from "ramda"
 
+const socket = io("http://localhost:8080") // the / ns endpoint
+const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+
 import {
   selectNamespaceMsg
   , selectRoomMsg
@@ -72,11 +75,18 @@ function nsListItem(_dispatch, _className, _ns) {
   return div({
     className: _className
     , attributes: { "data-ns": nsEndpoint }
-    , onclick: () =>_dispatch( selectNamespaceMsg(nsId) )
+    , onclick: (e) => {
+      console.dir(`dir: ${JSON.stringify(e, null, 2)}`)
+      // const nsEndpoint =
+      _dispatch( selectNamespaceMsg(nsId) )
+    }
   }, [img({className: "", src: nsImg})])
 }
 
 function nsList(_dispatch, _className, _nsArr) {
+  socket.on("nsList", nsData => {
+    console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+  })
   const nsListItems =
     R.map(R.partial(
       nsListItem
@@ -116,6 +126,7 @@ function colView1(_dispatch, _className, _model) {
 }
 
 function view(_dispatch, _model) {
+  socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
   return div(
     {className: "mw-100 vh-100 flex"}
     , [
