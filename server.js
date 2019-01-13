@@ -34,7 +34,8 @@ const io = socketio(expressServer, {
   // ws server implmentation, also a default
   , wsEngine: "ws"
 })
-// NOTE: TESTING
+
+// NOTE: io.on = io.of("/").on
 io.on("connect", socket => {
   socket.emit("messageFromServer", {data: "message from server"})
   socket.on("messageToServer", msg =>
@@ -54,8 +55,11 @@ io.on("connect", socket => {
       , nsEndpoint: ns.nsEndpoint
     }
   }, namespaces)
+  // console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
 
-  console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+  // send the nsData to the client.  need to use socket (not io), bc we want it
+  // to go to just the clients
+  socket.emit("nsList", nsData)
 })
 
 // loop through each namespace and LISTEN for a connection

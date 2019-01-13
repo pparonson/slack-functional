@@ -1,5 +1,3 @@
-import * as R from "ramda"
-
 const initModel = {
   nsId: 0
   , nsTitle: ""

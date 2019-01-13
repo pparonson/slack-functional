@@ -68,11 +68,12 @@ function rmsList(_dispatch, _className, _rmsArr) {
 }
 
 function nsListItem(_dispatch, _className, _ns) {
-  const {nsId, nsImg} = _ns
-  return div({className: _className}, [
-    img({className: "", src: nsImg, onclick: () =>
-      _dispatch( selectNamespaceMsg(nsId) )})
-  ])
+  const {nsId, nsImg, nsEndpoint} = _ns
+  return div({
+    className: _className
+    , attributes: { "data-ns": nsEndpoint }
+    , onclick: () =>_dispatch( selectNamespaceMsg(nsId) )
+  }, [img({className: "", src: nsImg})])
 }
 
 function nsList(_dispatch, _className, _nsArr) {
