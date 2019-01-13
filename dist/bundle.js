@@ -2510,12 +2510,10 @@ function nsListItem(_dispatch, _className, _ns) {
       nsImg = _ns.nsImg,
       nsEndpoint = _ns.nsEndpoint;
   return div({
-    className: _className,
-    attributes: {
-      "data-ns": nsEndpoint
-    },
-    onclick: function onclick(e) {
-      console.dir("dir: ".concat(JSON.stringify(e, null, 2))); // const nsEndpoint =
+    className: _className // , attributes: { "data-ns": nsEndpoint }
+    ,
+    onclick: function onclick() {
+      console.log("nsEndpoint: ".concat(nsEndpoint));
 
       _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId));
     }
@@ -2541,8 +2539,7 @@ function colView3(_className, _model) {
     className: _className
   }, [div({
     className: "f3 ma2 h2"
-  }, "Current Room"), msgsList("ma2", msgHistory) // , pre( JSON.stringify(_model, null, 2) )
-  , msgFormView(_model)]);
+  }, "Current Room"), msgsList("ma2", msgHistory), msgFormView(_model)]);
 }
 
 function colView2(_dispatch, _className, _model) {

@@ -74,10 +74,9 @@ function nsListItem(_dispatch, _className, _ns) {
   const {nsId, nsImg, nsEndpoint} = _ns
   return div({
     className: _className
-    , attributes: { "data-ns": nsEndpoint }
-    , onclick: (e) => {
-      console.dir(`dir: ${JSON.stringify(e, null, 2)}`)
-      // const nsEndpoint =
+    // , attributes: { "data-ns": nsEndpoint }
+    , onclick: () => {
+      console.log(`nsEndpoint: ${nsEndpoint}`)
       _dispatch( selectNamespaceMsg(nsId) )
     }
   }, [img({className: "", src: nsImg})])
@@ -101,7 +100,6 @@ function colView3(_className, _model) {
   return div({className: _className}, [
     div({className: "f3 ma2 h2"}, "Current Room")
     , msgsList("ma2", msgHistory)
-    // , pre( JSON.stringify(_model, null, 2) )
     , msgFormView(_model)
   ])
 }
