@@ -3,7 +3,7 @@ import hh from "hyperscript-helpers"
 import * as R from "ramda"
 
 const socket = io("http://localhost:8080") // the / ns endpoint
-const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+// const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
 
 import {
   selectNamespaceMsg
@@ -76,7 +76,6 @@ function nsListItem(_dispatch, _className, _ns) {
     className: _className
     // , attributes: { "data-ns": nsEndpoint }
     , onclick: () => {
-      console.log(`nsEndpoint: ${nsEndpoint}`)
       _dispatch( selectNamespaceMsg(nsId) )
     }
   }, [img({className: "", src: nsImg})])

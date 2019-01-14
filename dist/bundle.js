@@ -2385,7 +2385,9 @@ function update(_msg, _model) {
         nsTitle = _model$namespaces$_ms.nsTitle,
         nsImg = _model$namespaces$_ms.nsImg,
         nsEndpoint = _model$namespaces$_ms.nsEndpoint,
-        nsRooms = _model$namespaces$_ms.nsRooms;
+        nsRooms = _model$namespaces$_ms.nsRooms; // connect to namespace socket
+
+    connectNsSocket(nsEndpoint);
     return _objectSpread({}, _model, {
       nsId: nsId,
       nsTitle: nsTitle,
@@ -2397,6 +2399,14 @@ function update(_msg, _model) {
 
 
   return _model;
+} // helpers
+
+
+function connectNsSocket(_nsEndpoint) {
+  var nsSocket = io("http://localhost:8080/wiki");
+  nsSocket.on("connect", function (socket) {
+    console.log("Client socket ID: ".concat(socket.id, " has joined: ").concat(_nsEndpoint));
+  });
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (update);
@@ -2425,8 +2435,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 var socket = io("http://localhost:8080"); // the / ns endpoint
-
-var socket2 = io("http://localhost:8080/wiki"); // the /wiki ns endpoint
+// const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
 
 
 
@@ -2513,8 +2522,6 @@ function nsListItem(_dispatch, _className, _ns) {
     className: _className // , attributes: { "data-ns": nsEndpoint }
     ,
     onclick: function onclick() {
-      console.log("nsEndpoint: ".concat(nsEndpoint));
-
       _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId));
     }
   }, [img({
