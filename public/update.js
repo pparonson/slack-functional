@@ -37,8 +37,6 @@ function update(_msg, _model) {
   if (_msg.type === MSGS.SELECT_NAMESPACE) {
     const {nsId, nsTitle, nsImg, nsEndpoint, nsRooms} =
       _model.namespaces[_msg.nsId]
-    // connect to namespace socket
-    connectNsSocket(nsEndpoint)
     return {
       ..._model
       , nsId: nsId
@@ -54,11 +52,11 @@ function update(_msg, _model) {
 }
 
 // helpers
-function connectNsSocket(_nsEndpoint) {
-  const nsSocket = io(`http://localhost:8080/wiki`)
-  nsSocket.on("connect", socket => {
-    console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
-  })
-}
+// function connectNsSocket(_nsEndpoint) {
+//   const nsSocket = io(`http://localhost:8080/wiki`)
+//   nsSocket.on("connect", socket => {
+//     console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
+//   })
+// }
 
 export default update

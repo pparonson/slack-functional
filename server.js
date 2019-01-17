@@ -35,16 +35,16 @@ const io = socketio(expressServer, {
   , wsEngine: "ws"
 })
 
-// NOTE: io.on = io.of("/").on
-io.on("connect", socket => {
+// NOTE: io.on === io.of("/").on
+io.of("/").on("connect", socket => {
   socket.emit("messageFromServer", {data: "message from server"})
   socket.on("messageToServer", msg =>
     console.log(`dataFromClient: ${msg.data}`))
-//
-//   socket.on("inputMessage", _msg => {
-//     // broadcast msg to all clients
-//     socket.emit("broadcastMessage", {text: _msg.text})
-//   })
+
+  socket.on("inputMessage", _msg => {
+    // broadcast msg to all clients
+    socket.emit("broadcastMessage", {text: _msg.text})
+  })
 })
 
 io.on("connect", socket => {

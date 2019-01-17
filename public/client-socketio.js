@@ -1,30 +1,37 @@
-// const socket = io("http://localhost:8080") // the / ns endpoint
-// const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+export function connectNsSocket(_nsEndpoint) {
+  const nsSocket = io(`http://localhost:8080/wiki`)
+  nsSocket.on("connect", socket => {
+    console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
+  })
+}
 
-// // NOTE: TESTING
-// socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
+const socket = io("http://localhost:8080") // the / ns endpoint
+const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+
+// NOTE: TESTING
+socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
 // socket2.on("connect", () => console.log(`Socket2 ID: ${socket.id}`))
 
 // listen for nsList, which is a list of all of the namespaces
-// socket.on("nsList", nsData => {
-//   console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
-// })
+socket.on("nsList", nsData => {
+  console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+})
 
-// // receive msg from server
-// socket.on("messageFromServer", msg => {
-//   console.log(`dataFromServer: ${msg.data}`)
-//
-//   // send msg back to server
-//   socket.emit("messageToServer", {data: "Data from client"})
-//
-//   // ping server
-//   socket.on("ping", () => console.log("Ping received from server"))
-//
-//   socket.on("pong", latency => {
-//     console.log(`Latency: ${latency}`)
-//     console.log("Pong was sent to server")
-//   })
-// })
+// receive msg from server
+socket.on("messageFromServer", msg => {
+  console.log(`dataFromServer: ${msg.data}`)
+
+  // send msg back to server
+  socket.emit("messageToServer", {data: "Data from client"})
+
+  // ping server
+  // socket.on("ping", () => console.log("Ping received from server"))
+  //
+  // socket.on("pong", latency => {
+  //   console.log(`Latency: ${latency}`)
+  //   console.log("Pong was sent to server")
+  // })
+})
 
 // TODO: edit DOM state
 // let messages = []
