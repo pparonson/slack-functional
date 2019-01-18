@@ -2,9 +2,9 @@ import {h} from "virtual-dom"
 import hh from "hyperscript-helpers"
 import * as R from "ramda"
 
-import {connectNsSocket} from "./client-socketio"
+import io from "socket.io-client"
 
-// const socket = io("http://localhost:8080") // the / ns endpoint
+const socket = io("http://localhost:8080") // the / ns endpoint
 // const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
 
 import {

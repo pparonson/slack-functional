@@ -1,4 +1,4 @@
-export function connectNsSocket(_nsEndpoint) {
+function connectNsSocket(_nsEndpoint) {
   const nsSocket = io(`http://localhost:8080/wiki`)
   nsSocket.on("connect", socket => {
     console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
@@ -50,3 +50,5 @@ socket.on("messageFromServer", msg => {
 //     document.querySelector("#messages").innerHTML += `<div>${_msg.text}</div>`
 //   })
 // })
+
+export default connectNsSocket

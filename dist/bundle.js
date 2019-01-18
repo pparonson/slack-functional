@@ -2419,7 +2419,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(41);
 /* harmony import */ var hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42);
-/* harmony import */ var _client_socketio__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(371);
+/* harmony import */ var _client_socketio_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(371);
 /* harmony import */ var _update__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -2520,7 +2520,7 @@ function nsListItem(_dispatch, _className, _ns) {
     className: _className // , attributes: { "data-ns": nsEndpoint }
     ,
     onclick: function onclick() {
-      _client_socketio__WEBPACK_IMPORTED_MODULE_3__["connectNsSocket"];
+      _client_socketio_js__WEBPACK_IMPORTED_MODULE_3__["connectNsSocket"];
 
       _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_4__["selectNamespaceMsg"])(nsId));
     }
@@ -18464,13 +18464,13 @@ Object(_internal_curry1_js__WEBPACK_IMPORTED_MODULE_1__["default"])(function thu
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectNsSocket", function() { return connectNsSocket; });
 function connectNsSocket(_nsEndpoint) {
   var nsSocket = io("http://localhost:8080/wiki");
   nsSocket.on("connect", function (socket) {
     console.log("Client socket ID: ".concat(socket.id, " has joined: ").concat(_nsEndpoint));
   });
 }
+
 var socket = io("http://localhost:8080"); // the / ns endpoint
 
 var socket2 = io("http://localhost:8080/wiki"); // the /wiki ns endpoint
@@ -18514,6 +18514,8 @@ socket.on("messageFromServer", function (msg) {
 //     document.querySelector("#messages").innerHTML += `<div>${_msg.text}</div>`
 //   })
 // })
+
+/* harmony default export */ __webpack_exports__["default"] = (connectNsSocket);
 
 /***/ })
 /******/ ]);
