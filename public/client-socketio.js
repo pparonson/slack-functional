@@ -5,7 +5,6 @@ const socket = io("http://localhost:8080") // the / ns endpoint
 
 // NOTE: TESTING
 socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
-// socket2.on("connect", () => console.log(`Socket2 ID: ${socket.id}`))
 
 // listen for nsList, which is a list of all of the namespaces
 socket.on("nsList", nsData => {
