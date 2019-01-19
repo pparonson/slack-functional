@@ -1,5 +1,7 @@
 const socket = io("http://localhost:8080") // the / ns endpoint
 // const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+// const socket3 = io("http://localhost:8080/mozilla")
+// const socket4 = io("http://localhost:8080/linux")
 
 // NOTE: TESTING
 socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
