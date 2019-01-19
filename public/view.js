@@ -2,10 +2,7 @@ import {h} from "virtual-dom"
 import hh from "hyperscript-helpers"
 import * as R from "ramda"
 
-import io from "socket.io-client"
-
-const socket = io("http://localhost:8080") // the / ns endpoint
-// const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+// import io from "socket.io-client"
 
 import {
   selectNamespaceMsg
@@ -73,12 +70,11 @@ function rmsList(_dispatch, _className, _rmsArr) {
 }
 
 function nsListItem(_dispatch, _className, _ns) {
-  const {nsId, nsImg, nsEndpoint} = _ns
+  const {nsId, nsImg} = _ns
   return div({
     className: _className
     // , attributes: { "data-ns": nsEndpoint }
     , onclick: () => {
-      connectNsSocket
       _dispatch( selectNamespaceMsg(nsId) )
     }
   }, [img({className: "", src: nsImg})])

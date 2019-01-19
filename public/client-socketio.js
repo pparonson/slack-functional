@@ -1,12 +1,5 @@
-function connectNsSocket(_nsEndpoint) {
-  const nsSocket = io(`http://localhost:8080/wiki`)
-  nsSocket.on("connect", socket => {
-    console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
-  })
-}
-
 const socket = io("http://localhost:8080") // the / ns endpoint
-const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+// const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
 
 // NOTE: TESTING
 socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
@@ -51,4 +44,9 @@ socket.on("messageFromServer", msg => {
 //   })
 // })
 
-export default connectNsSocket
+// function connectNsSocket(_nsEndpoint) {
+//   const nsSocket = io(`http://localhost:8080/wiki`)
+//   nsSocket.on("connect", socket => {
+//     console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
+//   })
+// }

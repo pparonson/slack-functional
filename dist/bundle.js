@@ -2419,8 +2419,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(41);
 /* harmony import */ var hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42);
-/* harmony import */ var _client_socketio_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(371);
-/* harmony import */ var _update__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39);
+/* harmony import */ var _update__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(39);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -2431,9 +2430,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
-
- // const socket = io("http://localhost:8080") // the / ns endpoint
-// const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
+ // import io from "socket.io-client"
 
 
 
@@ -2500,7 +2497,7 @@ function rmListItem(_dispatch, _className, _rm) {
   }, [div({
     className: "f5 ml4 mb2 white-80 pointer dim",
     onclick: function onclick() {
-      return _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_4__["selectRoomMsg"])(rmId));
+      return _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectRoomMsg"])(rmId));
     }
   }, rmTitle)]);
 }
@@ -2514,15 +2511,12 @@ function rmsList(_dispatch, _className, _rmsArr) {
 
 function nsListItem(_dispatch, _className, _ns) {
   var nsId = _ns.nsId,
-      nsImg = _ns.nsImg,
-      nsEndpoint = _ns.nsEndpoint;
+      nsImg = _ns.nsImg;
   return div({
     className: _className // , attributes: { "data-ns": nsEndpoint }
     ,
     onclick: function onclick() {
-      _client_socketio_js__WEBPACK_IMPORTED_MODULE_3__["connectNsSocket"];
-
-      _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_4__["selectNamespaceMsg"])(nsId));
+      _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId));
     }
   }, [img({
     className: "",
@@ -18457,65 +18451,6 @@ Object(_internal_curry1_js__WEBPACK_IMPORTED_MODULE_1__["default"])(function thu
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (thunkify);
-
-/***/ }),
-/* 371 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function connectNsSocket(_nsEndpoint) {
-  var nsSocket = io("http://localhost:8080/wiki");
-  nsSocket.on("connect", function (socket) {
-    console.log("Client socket ID: ".concat(socket.id, " has joined: ").concat(_nsEndpoint));
-  });
-}
-
-var socket = io("http://localhost:8080"); // the / ns endpoint
-
-var socket2 = io("http://localhost:8080/wiki"); // the /wiki ns endpoint
-// NOTE: TESTING
-
-socket.on("connect", function () {
-  return console.log("Socket ID: ".concat(socket.id));
-}); // socket2.on("connect", () => console.log(`Socket2 ID: ${socket.id}`))
-// listen for nsList, which is a list of all of the namespaces
-
-socket.on("nsList", function (nsData) {
-  console.log("nsData: ".concat(JSON.stringify(nsData, null, 2)));
-}); // receive msg from server
-
-socket.on("messageFromServer", function (msg) {
-  console.log("dataFromServer: ".concat(msg.data)); // send msg back to server
-
-  socket.emit("messageToServer", {
-    data: "Data from client"
-  }); // ping server
-  // socket.on("ping", () => console.log("Ping received from server"))
-  //
-  // socket.on("pong", latency => {
-  //   console.log(`Latency: ${latency}`)
-  //   console.log("Pong was sent to server")
-  // })
-}); // TODO: edit DOM state
-// let messages = []
-// document.querySelector("#message-form").addEventListener("submit", (event) => {
-//   event.preventDefault()
-//   // get the input message
-//   const msg = document.querySelector("#user-message").value
-//   // send the msg to the server via socketio
-//   socket.emit("inputMessage", {text: msg})
-//   // receive broadcast input message from server to all clients
-//   socket.on("broadcastMessage", _msg => {
-//     // messages += _msg.text
-//     // messages.forEach(item => {
-//     //   document.querySelector("#messages").innerHTML = `<div>${item}</div>`
-//     // })
-//     document.querySelector("#messages").innerHTML += `<div>${_msg.text}</div>`
-//   })
-// })
-
-/* harmony default export */ __webpack_exports__["default"] = (connectNsSocket);
 
 /***/ })
 /******/ ]);
