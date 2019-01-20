@@ -35,17 +35,17 @@ const io = socketio(expressServer, {
   , wsEngine: "ws"
 })
 
-// NOTE: io.on === io.of("/").on
-io.of("/").on("connect", socket => {
-  socket.emit("messageFromServer", {data: "message from server"})
-  socket.on("messageToServer", msg =>
-    console.log(`dataFromClient: ${msg.data}`))
-
-  socket.on("inputMessage", _msg => {
-    // broadcast msg to all clients
-    socket.emit("broadcastMessage", {text: _msg.text})
-  })
-})
+// // NOTE: io.on === io.of("/").on
+// io.of("/").on("connect", socket => {
+//   socket.emit("messageFromServer", {data: "message from server"})
+//   socket.on("messageToServer", msg =>
+//     console.log(`dataFromClient: ${msg.data}`))
+//
+//   socket.on("inputMessage", _msg => {
+//     // broadcast msg to all clients
+//     socket.emit("broadcastMessage", {text: _msg.text})
+//   })
+// })
 
 // // loop through each namespace and LISTEN for a connection
 // // console.log(`namespaces[0]: ${JSON.stringify(namespaces[0], null, 2)}`)
@@ -56,17 +56,17 @@ io.of("/").on("connect", socket => {
 //   })
 // }, namespaces)
 
-// io.on("connect", socket => {
-//   // build up an array to send to client with nsImg and nsEndpoint for each ns
-//   let nsData = R.map(ns => {
-//     return {
-//       nsImg: ns.nsImg
-//       , nsEndpoint: ns.nsEndpoint
-//     }
-//   }, namespaces)
-//   // console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
-//
-//   // send the nsData to the client.  need to use socket (not io), bc we want it
-//   // to go to just the clients
-//   socket.emit("nsList", nsData)
-// })
+io.of("/").on("connect", socket => {
+  // build up an array to send to client with nsImg and nsEndpoint for each ns
+  let nsData = R.map(ns => {
+    return {
+      nsImg: ns.nsImg
+      , nsEndpoint: ns.nsEndpoint
+    }
+  }, namespaces)
+// console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+
+  // send the nsData to the client; use socket (not io), bc we want it
+  // to go to just the clients
+  socket.emit("nsList", nsData)
+})

@@ -70,10 +70,10 @@ function rmsList(_dispatch, _className, _rmsArr) {
 }
 
 function nsListItem(_dispatch, _className, _ns) {
-  const {nsId, nsImg} = _ns
+  const {nsId, nsImg, nsEndpoint} = _ns
   return div({
     className: _className
-    // , attributes: { "data-ns": nsEndpoint }
+    , attributes: { "data-ns": nsEndpoint }
     , onclick: () => {
       _dispatch( selectNamespaceMsg(nsId) )
     }
@@ -87,7 +87,7 @@ function nsList(_dispatch, _className, _nsArr) {
   const nsListItems =
     R.map(R.partial(
       nsListItem
-      , [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"]), _nsArr)
+      , [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer namespace"]), _nsArr)
   return div({className: _className}, [
     ...nsListItems
   ])
@@ -117,7 +117,7 @@ function colView1(_dispatch, _className, _model) {
   return div({className: _className}, [
     div({className: "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"}
       , [i({className: "fas fa-plus f3 center"})])
-    , nsList(_dispatch, "center", namespaces)
+    , nsList(_dispatch, "center namespaces", namespaces)
   ])
 }
 

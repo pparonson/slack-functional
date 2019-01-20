@@ -7,6 +7,7 @@ const socket = io("http://localhost:8080") // the / ns endpoint
 socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
 
 // listen for nsList, which is a list of all of the namespaces
+// NOTE: socket is connecting to the main ns
 socket.on("nsList", nsData => {
   console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
 })

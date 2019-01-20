@@ -2511,10 +2511,13 @@ function rmsList(_dispatch, _className, _rmsArr) {
 
 function nsListItem(_dispatch, _className, _ns) {
   var nsId = _ns.nsId,
-      nsImg = _ns.nsImg;
+      nsImg = _ns.nsImg,
+      nsEndpoint = _ns.nsEndpoint;
   return div({
-    className: _className // , attributes: { "data-ns": nsEndpoint }
-    ,
+    className: _className,
+    attributes: {
+      "data-ns": nsEndpoint
+    },
     onclick: function onclick() {
       _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId));
     }
@@ -2528,7 +2531,7 @@ function nsList(_dispatch, _className, _nsArr) {
   // socket.on("nsList", nsData => {
   //   console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
   // })
-  var nsListItems = ramda__WEBPACK_IMPORTED_MODULE_2__["map"](ramda__WEBPACK_IMPORTED_MODULE_2__["partial"](nsListItem, [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"]), _nsArr);
+  var nsListItems = ramda__WEBPACK_IMPORTED_MODULE_2__["map"](ramda__WEBPACK_IMPORTED_MODULE_2__["partial"](nsListItem, [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer namespace"]), _nsArr);
   return div({
     className: _className
   }, _toConsumableArray(nsListItems));
@@ -2559,7 +2562,7 @@ function colView1(_dispatch, _className, _model) {
   return div({
     className: _className
   }, [div({
-    className: "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"
+    className: "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer namespaces"
   }, [i({
     className: "fas fa-plus f3 center"
   })]), nsList(_dispatch, "center", namespaces)]);
