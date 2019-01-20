@@ -4,29 +4,37 @@ const socket = io("http://localhost:8080") // the / ns endpoint
 // const socket4 = io("http://localhost:8080/linux")
 
 // NOTE: TESTING
-socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
+// socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
 
 // listen for nsList, which is a list of all of the namespaces
 // NOTE: socket is connecting to the main ns
 socket.on("nsList", nsData => {
-  console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+  // console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+
+  // add a click listener for each ns
+  // NOTE: getElementsByClassName returns a "live" collection NOT array
+  // NOTE: Array.from will handle collections as if arrays
+  const namespaces = Array.from(document.getElementsByClassName("namespace"))
+  namespaces.forEach(ns => {
+    console.log(`namespaces: ${JSON.stringify(ns, null, 2)}`)
+  })
 })
 
-// receive msg from server
-socket.on("messageFromServer", msg => {
-  console.log(`dataFromServer: ${msg.data}`)
-
-  // send msg back to server
-  socket.emit("messageToServer", {data: "Data from client"})
-
-  // ping server
-  // socket.on("ping", () => console.log("Ping received from server"))
-  //
-  // socket.on("pong", latency => {
-  //   console.log(`Latency: ${latency}`)
-  //   console.log("Pong was sent to server")
-  // })
-})
+// // receive msg from server
+// socket.on("messageFromServer", msg => {
+//   console.log(`dataFromServer: ${msg.data}`)
+//
+//   // send msg back to server
+//   socket.emit("messageToServer", {data: "Data from client"})
+//
+//   // ping server
+//   // socket.on("ping", () => console.log("Ping received from server"))
+//   //
+//   // socket.on("pong", latency => {
+//   //   console.log(`Latency: ${latency}`)
+//   //   console.log("Pong was sent to server")
+//   // })
+// })
 
 // TODO: edit DOM state
 // let messages = []

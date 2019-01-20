@@ -2562,10 +2562,10 @@ function colView1(_dispatch, _className, _model) {
   return div({
     className: _className
   }, [div({
-    className: "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer namespaces"
+    className: "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer"
   }, [i({
     className: "fas fa-plus f3 center"
-  })]), nsList(_dispatch, "center", namespaces)]);
+  })]), nsList(_dispatch, "center namespaces", namespaces)]);
 }
 
 function view(_dispatch, _model) {
