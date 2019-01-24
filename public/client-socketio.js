@@ -1,12 +1,9 @@
 document.addEventListener("DOMContentLoaded", readyHandler)
 
 function readyHandler() {
-  alert("DOM is ready.. Loading socketio")
+  // alert("DOM is ready.. Loading socketio")
 
   const socket = io("http://localhost:8080") // the / ns endpoint
-  // const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
-  // const socket3 = io("http://localhost:8080/mozilla")
-  // const socket4 = io("http://localhost:8080/linux")
 
   // NOTE: TESTING
   socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
@@ -28,33 +25,12 @@ function readyHandler() {
         console.log(`Clicked nsEndpoint: ${nsEndpoint}`)
       })
     })
-  })
 
-  // the /wiki ns endpoint
-  const nsSocket = io("http://localhost:8080/wiki")
+    // connect the /wiki ns endpoint
+    const nsSocket = io("http://localhost:8080/wiki")
+    nsSocket.on("rmList", nsRooms => console.log(nsRooms))
+  })
 }
-// const socket = io("http://localhost:8080") // the / ns endpoint
-// // const socket2 = io("http://localhost:8080/wiki") // the /wiki ns endpoint
-// // const socket3 = io("http://localhost:8080/mozilla")
-// // const socket4 = io("http://localhost:8080/linux")
-//
-// // NOTE: TESTING
-// socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
-//
-// // listen for nsList, which is a list of all of the namespaces
-// // NOTE: socket is connecting to the main ns
-// socket.on("nsList", nsData => {
-//   // console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
-//
-//   // add a click listener for each ns
-//   // NOTE: getElementsByClassName returns a "live" collection NOT array
-//   // NOTE: Array.from will handle collections as if arrays
-//   const namespaces = Array.from(document.getElementsByClassName("namespace"))
-//   namespaces.forEach(ns => {
-//     // console.log(`namespaces: ${ns}`)
-//     ns.addEventListener("click", e => console.log(e.target) )
-//   })
-// })
 
 // // receive msg from server
 // socket.on("messageFromServer", msg => {

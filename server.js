@@ -64,9 +64,10 @@ io.of("/").on("connect", socket => {
 
 // // loop through each namespace and LISTEN for a connection
 // // console.log(`namespaces[0]: ${JSON.stringify(namespaces[0], null, 2)}`)
-// R.forEach(ns => {
-//   const nsSocket = io.of(ns.nsEndpoint)
-//   nsSocket.on("connect", socket => {
-//     console.log(`${socket.id} has joined ${ns.nsEndpoint}`)
-//   })
-// }, namespaces)
+R.forEach(ns => {
+  io.of(ns.nsEndpoint).on("connect", nsSocket => {
+    console.log(`${nsSocket.id} has joined ${ns.nsEndpoint}`)
+    // a socket has connected to a ns; send that ns group info
+    nsSocket.emit("rmList", ns.nsRooms)
+  })
+}, namespaces)
