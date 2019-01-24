@@ -47,15 +47,6 @@ const io = socketio(expressServer, {
 //   })
 // })
 
-// // loop through each namespace and LISTEN for a connection
-// // console.log(`namespaces[0]: ${JSON.stringify(namespaces[0], null, 2)}`)
-// R.forEach(ns => {
-//   const nsSocket = io.of(ns.nsEndpoint)
-//   nsSocket.on("connect", socket => {
-//     console.log(`${socket.id} has joined ${ns.nsEndpoint}`)
-//   })
-// }, namespaces)
-
 io.of("/").on("connect", socket => {
   // build up an array to send to client with nsImg and nsEndpoint for each ns
   let nsData = R.map(ns => {
@@ -64,9 +55,18 @@ io.of("/").on("connect", socket => {
       , nsEndpoint: ns.nsEndpoint
     }
   }, namespaces)
-// console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
+  // console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
 
   // send the nsData to the client; use socket (not io), bc we want it
   // to go to just the clients
   socket.emit("nsList", nsData)
 })
+
+// // loop through each namespace and LISTEN for a connection
+// // console.log(`namespaces[0]: ${JSON.stringify(namespaces[0], null, 2)}`)
+// R.forEach(ns => {
+//   const nsSocket = io.of(ns.nsEndpoint)
+//   nsSocket.on("connect", socket => {
+//     console.log(`${socket.id} has joined ${ns.nsEndpoint}`)
+//   })
+// }, namespaces)
