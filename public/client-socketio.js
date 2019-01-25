@@ -28,7 +28,15 @@ function readyHandler() {
 
     // connect the /wiki ns endpoint
     const nsSocket = io("http://localhost:8080/wiki")
-    nsSocket.on("rmList", nsRooms => console.log(nsRooms))
+    nsSocket.on("rmList", nsRooms => {
+      const rooms = Array.from(document.getElementsByClassName("room"))
+      rooms.forEach(rm => {
+        rm.addEventListener("click", e => {
+          console.log(e.target)
+        })
+      })
+    })
+    
   })
 }
 

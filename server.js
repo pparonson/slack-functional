@@ -67,7 +67,7 @@ io.of("/").on("connect", socket => {
 R.forEach(ns => {
   io.of(ns.nsEndpoint).on("connect", nsSocket => {
     console.log(`${nsSocket.id} has joined ${ns.nsEndpoint}`)
-    // a socket has connected to a ns; send that ns group info
+    // a socket has connected to a ns; send that ns the rooms data
     nsSocket.emit("rmList", ns.nsRooms)
   })
 }, namespaces)

@@ -57,8 +57,8 @@ function msgFormView(_model) {
 function rmListItem(_dispatch, _className, _rm) {
   const {rmId, rmTitle} = _rm
   return div({className: _className}, [
-    div({className: "f5 ml4 mb2 white-80 pointer dim", onclick: () =>
-      _dispatch( selectRoomMsg(rmId) )}, rmTitle)
+    div({className: "f5 ml4 mb2 white-80 pointer dim room", onclick: () =>
+      _dispatch(selectRoomMsg(rmId))}, rmTitle)
   ])
 }
 
@@ -108,7 +108,7 @@ function colView2(_dispatch, _className, _model) {
     div({className: "f3 ma2 white-80 dib"}, "Rooms")
     // , div({className: "dib dim pointer"}
     //   , [i({className: "fas fa-plus-circle f3 white-80"})])
-    , rmsList(_dispatch, "db", nsRooms)
+    , rmsList(_dispatch, "db room-list", nsRooms)
   ])
 }
 
