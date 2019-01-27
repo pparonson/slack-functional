@@ -57,13 +57,16 @@ function msgFormView(_model) {
 function rmListItem(_dispatch, _className, _rm) {
   const {rmId, rmTitle} = _rm
   return div({className: _className}, [
-    div({className: "f5 ml4 mb2 white-80 pointer dim room", onclick: () =>
-      _dispatch(selectRoomMsg(rmId))}, rmTitle)
+    div({
+      className: "f5 ml4 mb2 white-80 pointer dim"
+      , attributes: { "data-rm": rmTitle }
+      , onclick: () => _dispatch(selectRoomMsg(rmId))
+    }, rmTitle)
   ])
 }
 
 function rmsList(_dispatch, _className, _rmsArr) {
-  const rmListItems = R.map(R.partial(rmListItem, [_dispatch, "mw-100"]), _rmsArr)
+  const rmListItems = R.map(R.partial(rmListItem, [_dispatch, "mw-100 room"]), _rmsArr)
   return div({className: _className}, [
     ...rmListItems
   ])

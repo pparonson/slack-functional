@@ -29,14 +29,18 @@ function readyHandler() {
     // connect the /wiki ns endpoint
     const nsSocket = io("http://localhost:8080/wiki")
     nsSocket.on("rmList", nsRooms => {
+      // nsRooms.forEach(room => {
+      //   console.log(`ROOM: ${room}`)
+      // })
       const rooms = Array.from(document.getElementsByClassName("room"))
       rooms.forEach(rm => {
         rm.addEventListener("click", e => {
-          console.log(e.target)
+          const rmTitle = rm.getAttribute("data-rm")
+          console.log(`Clicked rmTitle: ${rmTitle}`)
         })
       })
     })
-    
+
   })
 }
 

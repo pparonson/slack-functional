@@ -2495,7 +2495,10 @@ function rmListItem(_dispatch, _className, _rm) {
   return div({
     className: _className
   }, [div({
-    className: "f5 ml4 mb2 white-80 pointer dim room",
+    className: "f5 ml4 mb2 white-80 pointer dim",
+    attributes: {
+      "data-rm": rmTitle
+    },
     onclick: function onclick() {
       return _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectRoomMsg"])(rmId));
     }
@@ -2503,7 +2506,7 @@ function rmListItem(_dispatch, _className, _rm) {
 }
 
 function rmsList(_dispatch, _className, _rmsArr) {
-  var rmListItems = ramda__WEBPACK_IMPORTED_MODULE_2__["map"](ramda__WEBPACK_IMPORTED_MODULE_2__["partial"](rmListItem, [_dispatch, "mw-100"]), _rmsArr);
+  var rmListItems = ramda__WEBPACK_IMPORTED_MODULE_2__["map"](ramda__WEBPACK_IMPORTED_MODULE_2__["partial"](rmListItem, [_dispatch, "mw-100 room"]), _rmsArr);
   return div({
     className: _className
   }, _toConsumableArray(rmListItems));
