@@ -1,3 +1,7 @@
+// this is a playground attempt to handle the socket.io client implementation
+// independent from the mvu pattern within on client-socketio.js file and using
+// events
+
 document.addEventListener("DOMContentLoaded", readyHandler)
 
 function readyHandler() {

@@ -299,6 +299,7 @@ const initModel = {
     , privateRm: false
     , msgHistory: []
   }
+  , clientSocket: []
   , addRoom(_rmObj, _nsRooms) {
     // this.rooms.push(roomObj)
     return [..._nsRooms, _rmObj]
