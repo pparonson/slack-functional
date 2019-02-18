@@ -112,20 +112,15 @@ var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()("http://loc
 // returns a new model with a socketio conn
 
 var _initModel = function _initModel(_socket, _model) {
-  var clientSocket = _model.clientSocket;
   return _objectSpread({}, _model, {
     clientSocket: [_socket]
   });
-};
-
-setTimeout(function () {
-  return console.log("socket id in index: ".concat(_initModel.clientSocket[0].id));
-}, 1000);
-setTimeout(function () {
-  return console.log("socket status in index: ".concat(_initModel.clientSocket[0].connected));
-}, 1000); // const el = document.createElement("p")
+}; // setTimeout(() => console.log(`socket id in index: ${_initModel.clientSocket[0].id}`), 1000)
+// setTimeout(() => console.log(`socket status in index: ${_initModel.clientSocket[0].connected}`), 1000)
+// const el = document.createElement("p")
 // el.innerHTML = JSON.stringify(initModel, null, 2)
 // node.appendChild(el)
+
 
 Object(_app_js__WEBPACK_IMPORTED_MODULE_1__["default"])(node, _update_js__WEBPACK_IMPORTED_MODULE_3__["default"], _view_js__WEBPACK_IMPORTED_MODULE_4__["default"], _initModel(socket, _model_js__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
@@ -9934,14 +9929,10 @@ __webpack_require__.r(__webpack_exports__);
  // WARNING: IMPURE CODE BELOW
 
 function app(_node, _update, _view, _model) {
-  setTimeout(function () {
-    return console.log("socket id in app: ".concat(_model.clientSocket[0].id));
-  }, 2000);
-  setTimeout(function () {
-    return console.log("socket status in app: ".concat(_model.clientSocket[0].connected));
-  }, 2000);
-  console.log("socket id in app: ".concat(_model.clientSocket[0].id));
-  console.log("socket status in app: ".concat(_model.clientSocket[0].connected));
+  // setTimeout(() => console.log(`socket id in app: ${_model.clientSocket[0].id}`), 2000)
+  // setTimeout(() => console.log(`socket status in app: ${_model.clientSocket[0].connected}`), 2000)
+  // console.log(`socket id in app: ${_model.clientSocket[0].id}`)
+  // console.log(`socket status in app: ${_model.clientSocket[0].connected}`)
   var model = _model;
 
   var currentView = _view(dispatch, model);
@@ -12240,7 +12231,9 @@ var _hh = hyperscript_helpers__WEBPACK_IMPORTED_MODULE_1___default()(virtual_dom
     img = _hh.img,
     form = _hh.form,
     input = _hh.input,
-    i = _hh.i;
+    i = _hh.i,
+    select = _hh.select,
+    option = _hh.option;
 
 function msgListItem(_className, _msg) {
   var user = _msg.user,

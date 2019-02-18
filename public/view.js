@@ -8,7 +8,7 @@ import {
 } from "./update"
 
 const {
-  pre, div, h1, img, form, input, i
+  pre, div, h1, img, form, input, i, select, option
 } = hh(h)
 
 function msgListItem(_className, _msg) {

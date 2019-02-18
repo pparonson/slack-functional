@@ -15,16 +15,15 @@ const socket = io("http://localhost:8080")
 
 // returns a new model with a socketio conn
 const _initModel = function(_socket, _model) {
-  const {clientSocket} = _model
-
+  
   return {
     ..._model
     , clientSocket: [_socket]
   }
 }
 
-setTimeout(() => console.log(`socket id in index: ${_initModel.clientSocket[0].id}`), 1000)
-setTimeout(() => console.log(`socket status in index: ${_initModel.clientSocket[0].connected}`), 1000)
+// setTimeout(() => console.log(`socket id in index: ${_initModel.clientSocket[0].id}`), 1000)
+// setTimeout(() => console.log(`socket status in index: ${_initModel.clientSocket[0].connected}`), 1000)
 
 // const el = document.createElement("p")
 // el.innerHTML = JSON.stringify(initModel, null, 2)
