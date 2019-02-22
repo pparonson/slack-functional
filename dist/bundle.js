@@ -12341,8 +12341,8 @@ function colView4(_dispatch, _className, _model) {
     className: "fl w-third vh-100"
   }, [msgsList("ma2 ba br2 vh5", msgHistory), msgsList("ma2 ba br2 vh-100", msgHistory)]) // right panel
   , div({
-    className: "fl w-two-thirds h-100 ma2 ba br2"
-  }, [msgsList("mw-100 vh-100", msgHistory)])]);
+    className: "fl w-two-thirds vh-100"
+  }, [msgsList("ma2 ba br2 mw-100 vh-100", msgHistory), msgsList("ma2 ba br2 mw-100 vh5", msgHistory)])]);
 }
 
 function colView3(_className, _model) {
