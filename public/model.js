@@ -299,7 +299,11 @@ const initModel = {
     , privateRm: false
     , msgHistory: []
   }
-  , clientSocket: []
+  , cmd: {
+    type: "CONNECT"
+    , url: "http://localhost:8080"
+    , nsUrl: ""
+  }
   , addRoom(_rmObj, _nsRooms) {
     // this.rooms.push(roomObj)
     return [..._nsRooms, _rmObj]

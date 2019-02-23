@@ -1,5 +1,7 @@
 const MSGS = {
-  SELECT_NAMESPACE: "SELECT_NAMESPACE"
+  CONNECT: "CONNECT"
+  , SOCKET_CONNECTED: "SOCKET_CONNECTED"
+  , SELECT_NAMESPACE: "SELECT_NAMESPACE"
   , SELECT_ROOM: "SELECT_ROOM"
 }
 
@@ -14,6 +16,19 @@ export function selectNamespaceMsg(_id) {
   return {
     type: MSGS.SELECT_NAMESPACE
     , nsId: _id
+  }
+}
+
+export function socketConnectedStatus() {
+  return {
+    type: MSGS.SOCKET_CONNECTED
+  }
+}
+
+export function connectSocketIO() {
+  return {
+    type: MSGS.CONNECT
+    , url: "http://TODO"
   }
 }
 
@@ -44,6 +59,19 @@ function update(_msg, _model) {
       , nsImg: nsImg
       , nsEndpoint: nsEndpoint
       , nsRooms: [...nsRooms]
+    }
+  }
+
+  if (_msg.type === MSGS.CONNECT) {
+    const {nsEndpoint} = _model.namespaces[_msg.nsId]
+    const _cmd = {
+      type: "CONNECT"
+      // , url: _msg.url
+      , url: `http://localhost:8080${nsEndpoint}`
+    }
+    return {
+      ..._model
+      , cmd: _cmd
     }
   }
 
