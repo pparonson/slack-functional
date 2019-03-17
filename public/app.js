@@ -1,20 +1,24 @@
 import {diff, patch} from "virtual-dom"
 import createElement from "virtual-dom/create-element"
 import io from "socket.io-client"
+import * as R from "ramda"
 
 // WARNING: IMPURE CODE BELOW
-function app(_node, _update, _view, _model) {
+function app(_node, _update, _view, _model, _command) {
   let model = _model
   let currentView = _view(dispatch, model)
   let rootNode = createElement(currentView)
-  let socket = socketEffects(null, dispatch, model)
+  let socket = socketEffects(null, dispatch, _command)
 
   // render the currentView to the DOM
   _node.appendChild(rootNode)
 
   // dispatch handle the update model state and _view sequence
   function dispatch(_msg) {
-    model = _update(_msg, model)
+    const updates = _update(_msg, model)
+    const isArray = R.type(updates) === "Array"
+    const model = isArray ? updates[0] : updates
+    const msg = isArray ? updates[1] : null
     // socket = socketEffects(socket, dispatch, model)
     const updatedView = _view(dispatch, model)
     // compare currentView to updatedView to render changes
@@ -26,20 +30,19 @@ function app(_node, _update, _view, _model) {
   }
 }
 
-function socketEffects(_socket, _dispatch, _model) {
+// helper fns
+function socketEffects(_socket, _dispatch, _command) {
   let socket
-  const {cmd} = _model
-
-  if (cmd === null) {
-    socket  = _socket
+  if (_command === null) {
+    socket = _socket
   }
 
-  if (cmd.type === "CONNECT") {
-    const {url} = cmd
+  if (_command.type === "CONNECT") {
+    const {url} = _command
     socket = io(url)
     socket.on("connect", () => {
       console.log(`app.js : Socket ID : ${socket.id}`)
-      // _dispatch({type: "SOCKET_CONNECTED"})
+      _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
     })
   }
   return socket
