@@ -153,7 +153,8 @@ function app(_node, _update, _view, _model, _command) {
 
     var isArray = ramda__WEBPACK_IMPORTED_MODULE_3__["type"](updates) === "Array";
     var model = isArray ? updates[0] : updates;
-    var msg = isArray ? updates[1] : null; // socket = socketEffects(socket, dispatch, model)
+    var command = isArray ? updates[1] : null;
+    socket = socketEffects(socket, dispatch, command);
 
     var updatedView = _view(dispatch, model); // compare currentView to updatedView to render changes
 
@@ -27983,8 +27984,6 @@ var initCommand = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectRoomMsg", function() { return selectRoomMsg; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectNamespaceMsg", function() { return selectNamespaceMsg; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "socketConnectedStatus", function() { return socketConnectedStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectSocketIO", function() { return connectSocketIO; });
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -28014,18 +28013,17 @@ function selectNamespaceMsg(_id) {
     type: MSGS.SELECT_NAMESPACE,
     nsId: _id
   };
-}
-function socketConnectedStatus() {
-  return {
-    type: MSGS.SOCKET_CONNECTED
-  };
-}
-function connectSocketIO() {
-  return {
-    type: MSGS.CONNECT,
-    url: "http://TODO"
-  };
-}
+} // export function socketConnectedStatus() {
+//   return {
+//     type: MSGS.SOCKET_CONNECTED
+//   }
+// }
+// export function connectSocketIO() {
+//   return {
+//     type: MSGS.CONNECT
+//     , url: "http://TODO"
+//   }
+// }
 
 function update(_msg, _model) {
   if (_msg.type === MSGS.SELECT_ROOM) {
@@ -28073,6 +28071,11 @@ function update(_msg, _model) {
     return _objectSpread({}, _model, {
       cmd: _cmd
     });
+  }
+
+  if (_msg.type === MSGS.SOCKET_CONNECTED) {
+    console.log("update.js: socket is still connected: ".concat(_msg.id));
+    return _model;
   } // default case
 
 

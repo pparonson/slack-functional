@@ -18,8 +18,8 @@ function app(_node, _update, _view, _model, _command) {
     const updates = _update(_msg, model)
     const isArray = R.type(updates) === "Array"
     const model = isArray ? updates[0] : updates
-    const msg = isArray ? updates[1] : null
-    // socket = socketEffects(socket, dispatch, model)
+    const command = isArray ? updates[1] : null
+    socket = socketEffects(socket, dispatch, command)
     const updatedView = _view(dispatch, model)
     // compare currentView to updatedView to render changes
     const patches = diff(currentView, updatedView)

@@ -19,18 +19,18 @@ export function selectNamespaceMsg(_id) {
   }
 }
 
-export function socketConnectedStatus() {
-  return {
-    type: MSGS.SOCKET_CONNECTED
-  }
-}
+// export function socketConnectedStatus() {
+//   return {
+//     type: MSGS.SOCKET_CONNECTED
+//   }
+// }
 
-export function connectSocketIO() {
-  return {
-    type: MSGS.CONNECT
-    , url: "http://TODO"
-  }
-}
+// export function connectSocketIO() {
+//   return {
+//     type: MSGS.CONNECT
+//     , url: "http://TODO"
+//   }
+// }
 
 function update(_msg, _model) {
   if (_msg.type === MSGS.SELECT_ROOM) {
@@ -73,6 +73,11 @@ function update(_msg, _model) {
       ..._model
       , cmd: _cmd
     }
+  }
+
+  if (_msg.type === MSGS.SOCKET_CONNECTED) {
+    console.log(`update.js: socket is still connected: ${_msg.id}`)
+    return _model
   }
 
   // default case
