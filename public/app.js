@@ -35,6 +35,7 @@ function socketEffects(_socket, _dispatch, _command) {
   let socket
   if (_command === null) {
     socket = _socket
+    return socket
   }
 
   if (_command.type === "CONNECT") {
@@ -42,7 +43,23 @@ function socketEffects(_socket, _dispatch, _command) {
     socket = io(url)
     socket.on("connect", () => {
       console.log(`app.js : Socket ID : ${socket.id}`)
-      _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
+      // _dispatch({type: "SOCKET_CONNECTED", id: socket.id}, _model)
+    })
+    
+    // receive msg from server
+    socket.on("messageFromServer", msg => {
+      console.log(`dataFromServer: ${msg.data}`)
+
+      // send msg back to server
+      socket.emit("messageToServer", {data: "Data from client"})
+
+      // ping server
+      // socket.on("ping", () => console.log("Ping received from server"))
+      //
+      // socket.on("pong", latency => {
+      //   console.log(`Latency: ${latency}`)
+      //   console.log("Pong was sent to server")
+      // })
     })
   }
   return socket

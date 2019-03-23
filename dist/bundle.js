@@ -173,18 +173,28 @@ function socketEffects(_socket, _dispatch, _command) {
 
   if (_command === null) {
     socket = _socket;
+    return socket;
   }
 
   if (_command.type === "CONNECT") {
     var url = _command.url;
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(url);
     socket.on("connect", function () {
-      console.log("app.js : Socket ID : ".concat(socket.id));
+      console.log("app.js : Socket ID : ".concat(socket.id)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id}, _model)
+    }); // receive msg from server
 
-      _dispatch({
-        type: "SOCKET_CONNECTED",
-        id: socket.id
-      });
+    socket.on("messageFromServer", function (msg) {
+      console.log("dataFromServer: ".concat(msg.data)); // send msg back to server
+
+      socket.emit("messageToServer", {
+        data: "Data from client"
+      }); // ping server
+      // socket.on("ping", () => console.log("Ping received from server"))
+      //
+      // socket.on("pong", latency => {
+      //   console.log(`Latency: ${latency}`)
+      //   console.log("Pong was sent to server")
+      // })
     });
   }
 
