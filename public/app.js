@@ -13,7 +13,6 @@ function app(_node, _update, _view, _model, _command) {
   // render the currentView to the DOM
   _node.appendChild(rootNode)
 
-  // dispatch handle the update model state and _view sequence
   function dispatch(_msg) {
     const updates = _update(_msg, model)
     const isArray = R.type(updates) === "Array"
@@ -43,24 +42,16 @@ function socketEffects(_socket, _dispatch, _command) {
     socket = io(url)
     socket.on("connect", () => {
       console.log(`app.js : Socket ID : ${socket.id}`)
-      // _dispatch({type: "SOCKET_CONNECTED", id: socket.id}, _model)
+      // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
     })
-    
+
     // receive msg from server
     socket.on("messageFromServer", msg => {
       console.log(`dataFromServer: ${msg.data}`)
-
       // send msg back to server
       socket.emit("messageToServer", {data: "Data from client"})
-
-      // ping server
-      // socket.on("ping", () => console.log("Ping received from server"))
-      //
-      // socket.on("pong", latency => {
-      //   console.log(`Latency: ${latency}`)
-      //   console.log("Pong was sent to server")
-      // })
     })
+    
   }
   return socket
 }

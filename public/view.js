@@ -82,9 +82,6 @@ function nsListItem(_dispatch, _className, _ns) {
 }
 
 function nsList(_dispatch, _className, _nsArr) {
-  // socket.on("nsList", nsData => {
-  //   console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
-  // })
   const nsListItems =
     R.map(R.partial(
       nsListItem

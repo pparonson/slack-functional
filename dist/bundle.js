@@ -100,19 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var node = document.querySelector("#app"); // the "/" ns endpoint
-// const socket = io("http://localhost:8080")
-// NOTE: TESTING
-// socket.on("connect", () => console.log(`Socket ID: ${socket.id}`))
-// returns a new model with a socketio conn
-// const _initModel = function(_socket, _model) {
-//
-//   return {
-//     ..._model
-//     , clientSocket: [_socket]
-//   }
-// }
-// const el = document.createElement("p")
+var node = document.querySelector("#app"); // const el = document.createElement("p")
 // el.innerHTML = JSON.stringify(initModel, null, 2)
 // node.appendChild(el)
 // app(node, update, view, _initModel(socket, initModel))
@@ -145,8 +133,7 @@ function app(_node, _update, _view, _model, _command) {
   var rootNode = virtual_dom_create_element__WEBPACK_IMPORTED_MODULE_1___default()(currentView);
   var socket = socketEffects(null, dispatch, _command); // render the currentView to the DOM
 
-  _node.appendChild(rootNode); // dispatch handle the update model state and _view sequence
-
+  _node.appendChild(rootNode);
 
   function dispatch(_msg) {
     var updates = _update(_msg, model);
@@ -180,7 +167,7 @@ function socketEffects(_socket, _dispatch, _command) {
     var url = _command.url;
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(url);
     socket.on("connect", function () {
-      console.log("app.js : Socket ID : ".concat(socket.id)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id}, _model)
+      console.log("app.js : Socket ID : ".concat(socket.id)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
     }); // receive msg from server
 
     socket.on("messageFromServer", function (msg) {
@@ -188,13 +175,7 @@ function socketEffects(_socket, _dispatch, _command) {
 
       socket.emit("messageToServer", {
         data: "Data from client"
-      }); // ping server
-      // socket.on("ping", () => console.log("Ping received from server"))
-      //
-      // socket.on("pong", latency => {
-      //   console.log(`Latency: ${latency}`)
-      //   console.log("Pong was sent to server")
-      // })
+      });
     });
   }
 
@@ -27957,11 +27938,6 @@ var initModel = {
     privateRm: false,
     msgHistory: []
   },
-  cmd: {
-    type: "CONNECT",
-    url: "http://localhost:8080",
-    nsUrl: ""
-  },
   addRoom: function addRoom(_rmObj, _nsRooms) {
     // this.rooms.push(roomObj)
     return [].concat(_toConsumableArray(_nsRooms), [_rmObj]);
@@ -28225,9 +28201,6 @@ function nsListItem(_dispatch, _className, _ns) {
 }
 
 function nsList(_dispatch, _className, _nsArr) {
-  // socket.on("nsList", nsData => {
-  //   console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
-  // })
   var nsListItems = ramda__WEBPACK_IMPORTED_MODULE_2__["map"](ramda__WEBPACK_IMPORTED_MODULE_2__["partial"](nsListItem, [_dispatch, "mv2 pa1 br3 w2 h2 bg-white-80 center dim pointer namespace"]), _nsArr);
   return div({
     className: _className
