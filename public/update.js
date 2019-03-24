@@ -19,16 +19,10 @@ export function selectNamespaceMsg(_id) {
   }
 }
 
-// export function socketConnectedStatus() {
-//   return {
-//     type: MSGS.SOCKET_CONNECTED
-//   }
-// }
-
-export function connectSocketIOMsg() {
+export function connectMsg(_nsEndpoint) {
   return {
     type: MSGS.CONNECT
-    , url: "http://TODO"
+    , url: `http://localhost:8080${_nsEndpoint}`
   }
 }
 
@@ -52,44 +46,28 @@ function update(_msg, _model) {
   if (_msg.type === MSGS.SELECT_NAMESPACE) {
     const {nsId, nsTitle, nsImg, nsEndpoint, nsRooms} =
       _model.namespaces[_msg.nsId]
-    return {
-      ..._model
-      , nsId: nsId
-      , nsTitle: nsTitle
-      , nsImg: nsImg
-      , nsEndpoint: nsEndpoint
-      , nsRooms: [...nsRooms]
-    }
-  }
-
-  if (_msg.type === MSGS.CONNECT) {
-    const {nsEndpoint} = _model.namespaces[_msg.nsId]
-    const _cmd = {
-      type: "CONNECT"
-      // , url: _msg.url
-      , url: `http://localhost:8080${nsEndpoint}`
-    }
-    return {
-      ..._model
-      , cmd: _cmd
-    }
+    // connect the ns socket
+    const cmd = connectMsg(nsEndpoint)
+    return [
+      {
+        ..._model
+        , nsId: nsId
+        , nsTitle: nsTitle
+        , nsImg: nsImg
+        , nsEndpoint: nsEndpoint
+        , nsRooms: [...nsRooms]
+      }
+      , cmd
+    ]
   }
 
   if (_msg.type === MSGS.SOCKET_CONNECTED) {
-    console.log(`update.js: socket is still connected: ${_msg.id}`)
+    console.log(`socket ID: ${_msg.socket.id} has joined: ${_msg.socket.nsp}`)
     return _model
   }
 
   // default case
   return _model
 }
-
-// helpers
-// function connectNsSocket(_nsEndpoint) {
-//   const nsSocket = io(`http://localhost:8080/wiki`)
-//   nsSocket.on("connect", socket => {
-//     console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
-//   })
-// }
 
 export default update

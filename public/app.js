@@ -41,8 +41,7 @@ function socketEffects(_socket, _dispatch, _command) {
     const {url} = _command
     socket = io(url)
     socket.on("connect", () => {
-      console.log(`app.js : Socket ID : ${socket.id}`)
-      // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
+      _dispatch({type: "SOCKET_CONNECTED", socket: socket})
     })
 
     // receive msg from server

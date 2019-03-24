@@ -167,11 +167,9 @@ function socketEffects(_socket, _dispatch, _command) {
     var url = _command.url;
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(url);
     socket.on("connect", function () {
-      console.log("app.js : Socket ID : ".concat(socket.id));
-
       _dispatch({
         type: "SOCKET_CONNECTED",
-        id: socket.id
+        socket: socket
       });
     }); // receive msg from server
 
@@ -27975,7 +27973,7 @@ var initCommand = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectRoomMsg", function() { return selectRoomMsg; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectNamespaceMsg", function() { return selectNamespaceMsg; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectSocketIOMsg", function() { return connectSocketIOMsg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectMsg", function() { return connectMsg; });
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -28005,16 +28003,11 @@ function selectNamespaceMsg(_id) {
     type: MSGS.SELECT_NAMESPACE,
     nsId: _id
   };
-} // export function socketConnectedStatus() {
-//   return {
-//     type: MSGS.SOCKET_CONNECTED
-//   }
-// }
-
-function connectSocketIOMsg() {
+}
+function connectMsg(_nsEndpoint) {
   return {
     type: MSGS.CONNECT,
-    url: "http://TODO"
+    url: "http://localhost:8080".concat(_nsEndpoint)
   };
 }
 
@@ -28044,43 +28037,26 @@ function update(_msg, _model) {
         nsTitle = _model$namespaces$_ms.nsTitle,
         nsImg = _model$namespaces$_ms.nsImg,
         nsEndpoint = _model$namespaces$_ms.nsEndpoint,
-        nsRooms = _model$namespaces$_ms.nsRooms;
-    return _objectSpread({}, _model, {
+        nsRooms = _model$namespaces$_ms.nsRooms; // connect the ns socket
+
+    var cmd = connectMsg(nsEndpoint);
+    return [_objectSpread({}, _model, {
       nsId: nsId,
       nsTitle: nsTitle,
       nsImg: nsImg,
       nsEndpoint: nsEndpoint,
       nsRooms: _toConsumableArray(nsRooms)
-    });
-  }
-
-  if (_msg.type === MSGS.CONNECT) {
-    var _nsEndpoint = _model.namespaces[_msg.nsId].nsEndpoint;
-    var _cmd = {
-      type: "CONNECT" // , url: _msg.url
-      ,
-      url: "http://localhost:8080".concat(_nsEndpoint)
-    };
-    return _objectSpread({}, _model, {
-      cmd: _cmd
-    });
+    }), cmd];
   }
 
   if (_msg.type === MSGS.SOCKET_CONNECTED) {
-    console.log("update.js: socket is still connected: ".concat(_msg.id));
+    console.log("socket ID: ".concat(_msg.socket.id, " has joined: ").concat(_msg.socket.nsp));
     return _model;
   } // default case
 
 
   return _model;
-} // helpers
-// function connectNsSocket(_nsEndpoint) {
-//   const nsSocket = io(`http://localhost:8080/wiki`)
-//   nsSocket.on("connect", socket => {
-//     console.log(`Client socket ID: ${socket.id} has joined: ${_nsEndpoint}`)
-//   })
-// }
-
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (update);
 
@@ -28199,7 +28175,8 @@ function nsListItem(_dispatch, _className, _ns) {
       "data-ns": nsEndpoint
     },
     onclick: function onclick() {
-      _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId));
+      _dispatch(Object(_update__WEBPACK_IMPORTED_MODULE_3__["selectNamespaceMsg"])(nsId)); // _dispatch( connectMsg(nsEndpoint) )
+
     }
   }, [img({
     className: "",

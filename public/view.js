@@ -5,6 +5,7 @@ import * as R from "ramda"
 import {
   selectNamespaceMsg
   , selectRoomMsg
+  , connectMsg
 } from "./update"
 
 const {
@@ -77,6 +78,7 @@ function nsListItem(_dispatch, _className, _ns) {
     , attributes: { "data-ns": nsEndpoint }
     , onclick: () => {
       _dispatch( selectNamespaceMsg(nsId) )
+      // _dispatch( connectMsg(nsEndpoint) )
     }
   }, [img({className: "", src: nsImg})])
 }
