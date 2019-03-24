@@ -25,12 +25,12 @@ export function selectNamespaceMsg(_id) {
 //   }
 // }
 
-// export function connectSocketIO() {
-//   return {
-//     type: MSGS.CONNECT
-//     , url: "http://TODO"
-//   }
-// }
+export function connectSocketIOMsg() {
+  return {
+    type: MSGS.CONNECT
+    , url: "http://TODO"
+  }
+}
 
 function update(_msg, _model) {
   if (_msg.type === MSGS.SELECT_ROOM) {

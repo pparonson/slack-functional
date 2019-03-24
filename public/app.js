@@ -16,7 +16,7 @@ function app(_node, _update, _view, _model, _command) {
   function dispatch(_msg) {
     const updates = _update(_msg, model)
     const isArray = R.type(updates) === "Array"
-    const model = isArray ? updates[0] : updates
+    model = isArray ? updates[0] : updates
     const command = isArray ? updates[1] : null
     socket = socketEffects(socket, dispatch, command)
     const updatedView = _view(dispatch, model)
@@ -51,7 +51,7 @@ function socketEffects(_socket, _dispatch, _command) {
       // send msg back to server
       socket.emit("messageToServer", {data: "Data from client"})
     })
-    
+
   }
   return socket
 }

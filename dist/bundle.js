@@ -139,7 +139,7 @@ function app(_node, _update, _view, _model, _command) {
     var updates = _update(_msg, model);
 
     var isArray = ramda__WEBPACK_IMPORTED_MODULE_3__["type"](updates) === "Array";
-    var model = isArray ? updates[0] : updates;
+    model = isArray ? updates[0] : updates;
     var command = isArray ? updates[1] : null;
     socket = socketEffects(socket, dispatch, command);
 
@@ -167,7 +167,12 @@ function socketEffects(_socket, _dispatch, _command) {
     var url = _command.url;
     socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(url);
     socket.on("connect", function () {
-      console.log("app.js : Socket ID : ".concat(socket.id)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
+      console.log("app.js : Socket ID : ".concat(socket.id));
+
+      _dispatch({
+        type: "SOCKET_CONNECTED",
+        id: socket.id
+      });
     }); // receive msg from server
 
     socket.on("messageFromServer", function (msg) {
@@ -27970,6 +27975,7 @@ var initCommand = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectRoomMsg", function() { return selectRoomMsg; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectNamespaceMsg", function() { return selectNamespaceMsg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectSocketIOMsg", function() { return connectSocketIOMsg; });
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -28004,12 +28010,13 @@ function selectNamespaceMsg(_id) {
 //     type: MSGS.SOCKET_CONNECTED
 //   }
 // }
-// export function connectSocketIO() {
-//   return {
-//     type: MSGS.CONNECT
-//     , url: "http://TODO"
-//   }
-// }
+
+function connectSocketIOMsg() {
+  return {
+    type: MSGS.CONNECT,
+    url: "http://TODO"
+  };
+}
 
 function update(_msg, _model) {
   if (_msg.type === MSGS.SELECT_ROOM) {
