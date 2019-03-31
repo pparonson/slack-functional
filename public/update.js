@@ -22,7 +22,8 @@ export function selectNamespaceMsg(_id) {
 export function connectMsg(_nsEndpoint) {
   return {
     type: MSGS.CONNECT
-    , url: `http://localhost:8080${_nsEndpoint}`
+    , url: "http://localhost:8080"
+    , nsp: _nsEndpoint  
   }
 }
 

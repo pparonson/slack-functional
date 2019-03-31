@@ -120,6 +120,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(89);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 
 
 
@@ -157,20 +165,39 @@ function app(_node, _update, _view, _model, _command) {
 
 function socketEffects(_socket, _dispatch, _command) {
   var socket;
+  var nsSocket;
 
   if (_command === null) {
-    socket = _socket;
-    return socket;
+    // socket = _socket[0]
+    return _toConsumableArray(_socket);
   }
 
   if (_command.type === "CONNECT") {
-    var url = _command.url;
-    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(url);
+    var url = _command.url,
+        nsp = _command.nsp;
+
+    if (nsp !== "/") {
+      socket = _socket[0];
+      nsSocket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()("".concat(url).concat(nsp)); // ie localhost:8080/wiki
+
+      nsSocket.on("connect", function () {
+        // console.log(`app.js : nsSocket ID : ${nsSocket.id}`)
+        // console.log(`app.js : nsSocket nsp : ${nsSocket.nsp}`)
+        alert("app.js : nsSocket ID : ".concat(nsSocket.id));
+        alert("app.js : nsSocket nsp : ".concat(nsSocket.nsp)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
+      }); // receive msg from server
+      // nsSocket.of(nsp).on("messageFromServer", msg => {
+      //   console.log(`dataFromServer: ${msg.data}`)
+      //   // send msg back to server
+      //   nsSocket.emit("messageToServer", {data: "Data from client"})
+      // })
+    } else {
+      socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(url);
+    }
+
     socket.on("connect", function () {
-      _dispatch({
-        type: "SOCKET_CONNECTED",
-        socket: socket
-      });
+      console.log("app.js : Socket ID : ".concat(socket.id));
+      console.log("app.js : Socket nsp : ".concat(socket.nsp)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
     }); // receive msg from server
 
     socket.on("messageFromServer", function (msg) {
@@ -182,7 +209,7 @@ function socketEffects(_socket, _dispatch, _command) {
     });
   }
 
-  return socket;
+  return [socket, nsSocket];
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (app);
@@ -27961,7 +27988,8 @@ var initModel = {
 __webpack_require__.r(__webpack_exports__);
 var initCommand = {
   type: "CONNECT",
-  url: "http://localhost:8080"
+  url: "http://localhost:8080",
+  nsp: "/"
 };
 /* harmony default export */ __webpack_exports__["default"] = (initCommand);
 
@@ -28007,7 +28035,8 @@ function selectNamespaceMsg(_id) {
 function connectMsg(_nsEndpoint) {
   return {
     type: MSGS.CONNECT,
-    url: "http://localhost:8080".concat(_nsEndpoint)
+    url: "http://localhost:8080",
+    nsp: _nsEndpoint
   };
 }
 
