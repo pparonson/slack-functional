@@ -23,7 +23,7 @@ export function connectMsg(_nsEndpoint) {
   return {
     type: MSGS.CONNECT
     , url: "http://localhost:8080"
-    , nsp: _nsEndpoint  
+    , nsp: _nsEndpoint
   }
 }
 
@@ -63,7 +63,7 @@ function update(_msg, _model) {
   }
 
   if (_msg.type === MSGS.SOCKET_CONNECTED) {
-    console.log(`socket ID: ${_msg.socket.id} has joined: ${_msg.socket.nsp}`)
+    console.log(`socket ID: ${_msg.io.id} has joined: ${_msg.io.nsp}`)
     return _model
   }
 

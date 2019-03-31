@@ -120,14 +120,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(89);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 
 
 
@@ -165,11 +157,10 @@ function app(_node, _update, _view, _model, _command) {
 
 function socketEffects(_socket, _dispatch, _command) {
   var socket;
-  var nsSocket;
 
   if (_command === null) {
-    // socket = _socket[0]
-    return _toConsumableArray(_socket);
+    socket = _socket;
+    return socket;
   }
 
   if (_command.type === "CONNECT") {
@@ -177,27 +168,19 @@ function socketEffects(_socket, _dispatch, _command) {
         nsp = _command.nsp;
 
     if (nsp !== "/") {
-      socket = _socket[0];
-      nsSocket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()("".concat(url).concat(nsp)); // ie localhost:8080/wiki
-
-      nsSocket.on("connect", function () {
-        // console.log(`app.js : nsSocket ID : ${nsSocket.id}`)
-        // console.log(`app.js : nsSocket nsp : ${nsSocket.nsp}`)
-        alert("app.js : nsSocket ID : ".concat(nsSocket.id));
-        alert("app.js : nsSocket nsp : ".concat(nsSocket.nsp)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
-      }); // receive msg from server
-      // nsSocket.of(nsp).on("messageFromServer", msg => {
-      //   console.log(`dataFromServer: ${msg.data}`)
-      //   // send msg back to server
-      //   nsSocket.emit("messageToServer", {data: "Data from client"})
-      // })
+      socket = _socket;
     } else {
-      socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(url);
+      socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()("".concat(url).concat(nsp));
     }
 
     socket.on("connect", function () {
       console.log("app.js : Socket ID : ".concat(socket.id));
-      console.log("app.js : Socket nsp : ".concat(socket.nsp)); // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
+      console.log("app.js : Socket nsp : ".concat(socket.nsp));
+
+      _dispatch({
+        type: "SOCKET_CONNECTED",
+        io: socket
+      });
     }); // receive msg from server
 
     socket.on("messageFromServer", function (msg) {
@@ -209,7 +192,7 @@ function socketEffects(_socket, _dispatch, _command) {
     });
   }
 
-  return [socket, nsSocket];
+  return socket;
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (app);
@@ -28079,7 +28062,7 @@ function update(_msg, _model) {
   }
 
   if (_msg.type === MSGS.SOCKET_CONNECTED) {
-    console.log("socket ID: ".concat(_msg.socket.id, " has joined: ").concat(_msg.socket.nsp));
+    console.log("socket ID: ".concat(_msg.io.id, " has joined: ").concat(_msg.io.nsp));
     return _model;
   } // default case
 

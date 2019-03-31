@@ -32,39 +32,24 @@ function app(_node, _update, _view, _model, _command) {
 // helper fns
 function socketEffects(_socket, _dispatch, _command) {
   let socket
-  let nsSocket
   if (_command === null) {
-    // socket = _socket[0]
-    return [..._socket]
+    socket = _socket
+    return socket
   }
 
   if (_command.type === "CONNECT") {
     const {url, nsp} = _command
     if (nsp !== "/") {
-      socket = _socket[0]
-      nsSocket = io(`${url}${nsp}`) // ie localhost:8080/wiki
-      nsSocket.on("connect", () => {
-        // console.log(`app.js : nsSocket ID : ${nsSocket.id}`)
-        // console.log(`app.js : nsSocket nsp : ${nsSocket.nsp}`)
-        alert(`app.js : nsSocket ID : ${nsSocket.id}`)
-        alert(`app.js : nsSocket nsp : ${nsSocket.nsp}`)
-        // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
-      })
+      socket = _socket
 
-      // receive msg from server
-      // nsSocket.of(nsp).on("messageFromServer", msg => {
-      //   console.log(`dataFromServer: ${msg.data}`)
-      //   // send msg back to server
-      //   nsSocket.emit("messageToServer", {data: "Data from client"})
-      // })
     } else {
-      socket = io(url)
+      socket = io(`${url}${nsp}`)
     }
 
     socket.on("connect", () => {
       console.log(`app.js : Socket ID : ${socket.id}`)
       console.log(`app.js : Socket nsp : ${socket.nsp}`)
-      // _dispatch({type: "SOCKET_CONNECTED", id: socket.id})
+      _dispatch({type: "SOCKET_CONNECTED", io: socket})
     })
 
     // receive msg from server
@@ -76,7 +61,7 @@ function socketEffects(_socket, _dispatch, _command) {
 
   }
 
-  return [socket, nsSocket]
+  return socket
 }
 
 
