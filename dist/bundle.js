@@ -166,17 +166,8 @@ function socketEffects(_socket, _dispatch, _command) {
   if (_command.type === "CONNECT") {
     var url = _command.url,
         nsp = _command.nsp;
-
-    if (nsp !== "/") {
-      socket = _socket;
-    } else {
-      socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()("".concat(url).concat(nsp));
-    }
-
+    socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()("".concat(url).concat(nsp));
     socket.on("connect", function () {
-      console.log("app.js : Socket ID : ".concat(socket.id));
-      console.log("app.js : Socket nsp : ".concat(socket.nsp));
-
       _dispatch({
         type: "SOCKET_CONNECTED",
         io: socket
@@ -187,7 +178,7 @@ function socketEffects(_socket, _dispatch, _command) {
       console.log("dataFromServer: ".concat(msg.data)); // send msg back to server
 
       socket.emit("messageToServer", {
-        data: "Data from client"
+        data: "Data from client, ".concat(socket.id)
       });
     });
   }

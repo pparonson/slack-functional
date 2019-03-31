@@ -48,27 +48,18 @@ io.of("/").on("connect", socket => {
   // })
 })
 
-// io.of("/").on("connect", socket => {
-//   // build up an array to send to client with nsImg and nsEndpoint for each ns
-//   let nsData = R.map(ns => {
-//     return {
-//       nsImg: ns.nsImg
-//       , nsEndpoint: ns.nsEndpoint
-//     }
-//   }, namespaces)
-//   // console.log(`nsData: ${JSON.stringify(nsData, null, 2)}`)
-//
-//   // send the nsData to the client; use socket (not io), bc we want it
-//   // to go to just the clients
-//   socket.emit("nsList", nsData)
-// })
+// loop through each namespace and LISTEN for a connection
+// console.log(`namespaces[0]: ${JSON.stringify(namespaces[0], null, 2)}`)
+R.forEach(ns => {
+  io.of(ns.nsEndpoint).on("connect", nsSocket => {
+    console.log(`${nsSocket.id} has joined ${ns.nsEndpoint}`)
 
-// // loop through each namespace and LISTEN for a connection
-// // console.log(`namespaces[0]: ${JSON.stringify(namespaces[0], null, 2)}`)
-// R.forEach(ns => {
-//   io.of(ns.nsEndpoint).on("connect", nsSocket => {
-//     console.log(`${nsSocket.id} has joined ${ns.nsEndpoint}`)
-//     // a socket has connected to a ns; send that ns the rooms data
-//     nsSocket.emit("rmList", ns.nsRooms)
-//   })
-// }, namespaces)
+    // nsSocket.emit("messageFromServer", {data: "message from server"})
+    // nsSocket.on("messageToServer", msg => {
+    //   console.log(`dataFromClient: ${msg.data}`)
+    // })
+
+    // // a socket has connected to a ns; send that ns the rooms data
+    // nsSocket.emit("rmList", ns.nsRooms)
+  })
+}, namespaces)

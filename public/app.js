@@ -39,16 +39,8 @@ function socketEffects(_socket, _dispatch, _command) {
 
   if (_command.type === "CONNECT") {
     const {url, nsp} = _command
-    if (nsp !== "/") {
-      socket = _socket
-
-    } else {
-      socket = io(`${url}${nsp}`)
-    }
-
+    socket = io(`${url}${nsp}`)
     socket.on("connect", () => {
-      console.log(`app.js : Socket ID : ${socket.id}`)
-      console.log(`app.js : Socket nsp : ${socket.nsp}`)
       _dispatch({type: "SOCKET_CONNECTED", io: socket})
     })
 
@@ -56,7 +48,7 @@ function socketEffects(_socket, _dispatch, _command) {
     socket.on("messageFromServer", msg => {
       console.log(`dataFromServer: ${msg.data}`)
       // send msg back to server
-      socket.emit("messageToServer", {data: "Data from client"})
+      socket.emit("messageToServer", {data: `Data from client, ${socket.id}`})
     })
 
   }
